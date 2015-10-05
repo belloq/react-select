@@ -326,6 +326,19 @@ var Select = React.createClass({
 		this.setValue(this.state.values.concat(value));
 	},
 
+	addOrClearInputValue () {
+		var inputValue = this.state.inputValue;
+		if((inputValue || '').length === 0) {
+			return;
+		}
+		if (this.props.allowCreate) {
+			this.setValue(this.state.values.concat(inputValue), false);
+		}
+		else {
+			this.setState({ inputValue: null });
+		}
+	},
+
 	popValue () {
 		this.setValue(this.state.values.slice(0, this.state.values.length - 1));
 	},
@@ -436,6 +449,7 @@ var Select = React.createClass({
 	},
 
 	handleInputBlur (event) {
+		this.addOrClearInputValue();
 		this._blurTimeout = setTimeout(() => {
 			if (this._focusAfterUpdate || !this.isMounted()) return;
 			this.setState({
@@ -458,7 +472,7 @@ var Select = React.createClass({
 				}
 			return;
 			case 9: // tab
-				if (event.shiftKey || !this.state.isOpen || !this.state.focusedOption) {
+				if (!this.state.isOpen) {
 					return;
 				}
 				this.selectFocusedOption();
