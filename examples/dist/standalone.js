@@ -376,8 +376,9 @@ var Select = React.createClass({
 		}
 		var newState = this.getStateFromValue(value);
 		newState.isOpen = false;
-		this.fireChangeEvent(newState);
-		this.setState(newState);
+		if (this.fireChangeEvent(newState)) {
+			this.setState(newState);
+		}
 	},
 
 	selectValue: function selectValue(value) {
@@ -437,8 +438,9 @@ var Select = React.createClass({
 
 	fireChangeEvent: function fireChangeEvent(newState) {
 		if (newState.value !== this.state.value && this.props.onChange) {
-			this.props.onChange(newState.value, newState.values);
+			return this.props.onChange(newState.value, newState.values);
 		}
+		return true;
 	},
 
 	handleMouseDown: function handleMouseDown(event) {
