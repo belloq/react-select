@@ -305,7 +305,7 @@ var Select = React.createClass({
 
 	getStateFromValue (value, options, placeholder) {
 		if (!options) {
-			options = this.state.flatOptions;
+			options = this.state.options;
 		}
 		if (!placeholder) {
 			placeholder = this.props.placeholder;
@@ -314,7 +314,7 @@ var Select = React.createClass({
 		// reset internal filter string
 		this._optionsFilterString = '';
 
-		var values = this.initValuesArray(value, options);
+		var values = this.initValuesArray(value, this.state.flatOptions);
 		var filteredOptions = this.filterOptions(options, values);
 
 		var focusedOption;
