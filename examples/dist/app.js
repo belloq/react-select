@@ -29,6 +29,10 @@ var _componentsMultiSelectField = require('./components/MultiSelectField');
 
 var _componentsMultiSelectField2 = _interopRequireDefault(_componentsMultiSelectField);
 
+var _componentsGroupedOptionsField = require('./components/GroupedOptionsField');
+
+var _componentsGroupedOptionsField2 = _interopRequireDefault(_componentsGroupedOptionsField);
+
 var _componentsRemoteSelectField = require('./components/RemoteSelectField');
 
 var _componentsRemoteSelectField2 = _interopRequireDefault(_componentsRemoteSelectField);
@@ -68,13 +72,14 @@ _react2['default'].render(_react2['default'].createElement(
 	_react2['default'].createElement(_componentsSelectedValuesField2['default'], { label: 'Clickable labels (labels as links)', options: FLAVOURS, hint: 'Open the console to see click behaviour (data/event)' }),
 	_react2['default'].createElement(_componentsSelectedValuesField2['default'], { label: 'Disabled option', options: FLAVOURS_WITH_DISABLED_OPTION, hint: 'You savage! Caramel is the best...' }),
 	_react2['default'].createElement(_componentsDisabledUpsellOptions2['default'], { label: 'Disabled option with a link' }),
+	_react2['default'].createElement(_componentsGroupedOptionsField2['default'], { label: 'Option Groups' }),
 	_react2['default'].createElement(_componentsSelectedValuesField2['default'], { label: 'Option Creation (tags mode)', options: FLAVOURS, allowCreate: true, hint: 'Enter a value that\'s not in the list, then hit enter' }),
 	_react2['default'].createElement(_componentsCustomRenderField2['default'], { label: 'Custom render options/values' }),
 	_react2['default'].createElement(_componentsCustomRenderField2['default'], { label: 'Custom render options/values (multi)', multi: true, delimiter: ',' }),
 	_react2['default'].createElement(_componentsRemoteSelectField2['default'], { label: 'Remote Options', hint: 'Type anything in the remote example to asynchronously load options. Valid alternative results are "A", "AA", and "AB"' })
 ), document.getElementById('example'));
 
-},{"./components/CustomKeysField":2,"./components/CustomRenderField":4,"./components/DisabledUpsellOptions":6,"./components/MultiSelectField":7,"./components/RemoteSelectField":8,"./components/SelectedValuesField":9,"./components/StatesField":10,"./components/UsersField":11,"./components/ValuesAsNumbersField":12,"react":undefined,"react-select":undefined}],2:[function(require,module,exports){
+},{"./components/CustomKeysField":2,"./components/CustomRenderField":4,"./components/DisabledUpsellOptions":6,"./components/GroupedOptionsField":7,"./components/MultiSelectField":8,"./components/RemoteSelectField":9,"./components/SelectedValuesField":10,"./components/StatesField":11,"./components/UsersField":12,"./components/ValuesAsNumbersField":13,"react":undefined,"react-select":undefined}],2:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -207,7 +212,7 @@ var Option = _react2['default'].createClass({
 
 module.exports = Option;
 
-},{"react":undefined,"react-gravatar":18}],4:[function(require,module,exports){
+},{"react":undefined,"react-gravatar":19}],4:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -320,7 +325,7 @@ var SingleValue = _react2['default'].createClass({
 
 module.exports = SingleValue;
 
-},{"react":undefined,"react-gravatar":18}],6:[function(require,module,exports){
+},{"react":undefined,"react-gravatar":19}],6:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -400,6 +405,91 @@ function logChange() {
 	console.log.apply(console, [].concat(['Select value changed:'], Array.prototype.slice.apply(arguments)));
 }
 
+var ops = [{
+	label: 'Black',
+	value: 'black'
+}, {
+	label: 'Primary Colors',
+	options: [{
+		label: 'Yellow',
+		value: 'yellow'
+	}, {
+		label: 'Red',
+		value: 'red'
+	}, {
+		label: 'Blue',
+		value: 'blue'
+	}]
+}, {
+	label: 'Secondary Colors',
+	options: [{
+		label: 'Orange',
+		value: 'orange'
+	}, {
+		label: 'Purple',
+		options: [{
+			label: 'Light Purple',
+			value: 'light_purple'
+		}, {
+			label: 'Medium Purple',
+			value: 'medium_purple'
+		}, {
+			label: 'Dark Purple',
+			value: 'dark_purple'
+		}]
+	}, {
+		label: 'Green',
+		value: 'green'
+	}]
+}, {
+	label: 'White',
+	value: 'white'
+}];
+
+var GroupedOptionsField = _react2['default'].createClass({
+	displayName: 'GroupedOptionsField',
+	propTypes: {
+		delimiter: _react2['default'].PropTypes.string,
+		label: _react2['default'].PropTypes.string,
+		multi: _react2['default'].PropTypes.bool
+	},
+
+	render: function render() {
+		return _react2['default'].createElement(
+			'div',
+			{ className: 'section' },
+			_react2['default'].createElement(
+				'h3',
+				{ className: 'section-heading' },
+				this.props.label
+			),
+			_react2['default'].createElement(_reactSelect2['default'], {
+				options: ops,
+				placeholder: 'Select a color',
+				onChange: logChange })
+		);
+	}
+});
+
+module.exports = GroupedOptionsField;
+
+},{"react":undefined,"react-select":undefined}],8:[function(require,module,exports){
+'use strict';
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactSelect = require('react-select');
+
+var _reactSelect2 = _interopRequireDefault(_reactSelect);
+
+function logChange() {
+	console.log.apply(console, [].concat(['Select value changed:'], Array.prototype.slice.apply(arguments)));
+}
+
 var MultiSelectField = _react2['default'].createClass({
 	displayName: 'MultiSelectField',
 	propTypes: {
@@ -449,7 +539,7 @@ var MultiSelectField = _react2['default'].createClass({
 
 module.exports = MultiSelectField;
 
-},{"react":undefined,"react-select":undefined}],8:[function(require,module,exports){
+},{"react":undefined,"react-select":undefined}],9:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -519,7 +609,7 @@ var RemoteSelectField = _react2['default'].createClass({
 
 module.exports = RemoteSelectField;
 
-},{"react":undefined,"react-select":undefined}],9:[function(require,module,exports){
+},{"react":undefined,"react-select":undefined}],10:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -579,7 +669,7 @@ var SelectedValuesField = _react2['default'].createClass({
 
 module.exports = SelectedValuesField;
 
-},{"react":undefined,"react-select":undefined}],10:[function(require,module,exports){
+},{"react":undefined,"react-select":undefined}],11:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -712,7 +802,7 @@ var StatesField = _react2['default'].createClass({
 
 module.exports = StatesField;
 
-},{"../data/states":13,"react":undefined,"react-select":undefined}],11:[function(require,module,exports){
+},{"../data/states":14,"react":undefined,"react-select":undefined}],12:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -773,7 +863,7 @@ var UsersField = _react2['default'].createClass({
 
 module.exports = UsersField;
 
-},{"../data/users":14,"./CustomOption":3,"./CustomSingleValue":5,"react":undefined,"react-select":undefined}],12:[function(require,module,exports){
+},{"../data/users":15,"./CustomOption":3,"./CustomSingleValue":5,"react":undefined,"react-select":undefined}],13:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -917,19 +1007,19 @@ var ValuesAsNumbersField = _react2['default'].createClass({
 
 module.exports = ValuesAsNumbersField;
 
-},{"react":undefined,"react-select":undefined}],13:[function(require,module,exports){
+},{"react":undefined,"react-select":undefined}],14:[function(require,module,exports){
 'use strict';
 
 exports.AU = [{ value: 'australian-capital-territory', label: 'Australian Capital Territory' }, { value: 'new-south-wales', label: 'New South Wales' }, { value: 'victoria', label: 'Victoria' }, { value: 'queensland', label: 'Queensland' }, { value: 'western-australia', label: 'Western Australia' }, { value: 'south-australia', label: 'South Australia' }, { value: 'tasmania', label: 'Tasmania' }, { value: 'northern-territory', label: 'Northern Territory' }];
 
 exports.US = [{ value: 'AL', label: 'Alabama', disabled: true }, { value: 'AK', label: 'Alaska' }, { value: 'AS', label: 'American Samoa' }, { value: 'AZ', label: 'Arizona' }, { value: 'AR', label: 'Arkansas' }, { value: 'CA', label: 'California' }, { value: 'CO', label: 'Colorado' }, { value: 'CT', label: 'Connecticut' }, { value: 'DE', label: 'Delaware' }, { value: 'DC', label: 'District Of Columbia' }, { value: 'FM', label: 'Federated States Of Micronesia' }, { value: 'FL', label: 'Florida' }, { value: 'GA', label: 'Georgia' }, { value: 'GU', label: 'Guam' }, { value: 'HI', label: 'Hawaii' }, { value: 'ID', label: 'Idaho' }, { value: 'IL', label: 'Illinois' }, { value: 'IN', label: 'Indiana' }, { value: 'IA', label: 'Iowa' }, { value: 'KS', label: 'Kansas' }, { value: 'KY', label: 'Kentucky' }, { value: 'LA', label: 'Louisiana' }, { value: 'ME', label: 'Maine' }, { value: 'MH', label: 'Marshall Islands' }, { value: 'MD', label: 'Maryland' }, { value: 'MA', label: 'Massachusetts' }, { value: 'MI', label: 'Michigan' }, { value: 'MN', label: 'Minnesota' }, { value: 'MS', label: 'Mississippi' }, { value: 'MO', label: 'Missouri' }, { value: 'MT', label: 'Montana' }, { value: 'NE', label: 'Nebraska' }, { value: 'NV', label: 'Nevada' }, { value: 'NH', label: 'New Hampshire' }, { value: 'NJ', label: 'New Jersey' }, { value: 'NM', label: 'New Mexico' }, { value: 'NY', label: 'New York' }, { value: 'NC', label: 'North Carolina' }, { value: 'ND', label: 'North Dakota' }, { value: 'MP', label: 'Northern Mariana Islands' }, { value: 'OH', label: 'Ohio' }, { value: 'OK', label: 'Oklahoma' }, { value: 'OR', label: 'Oregon' }, { value: 'PW', label: 'Palau' }, { value: 'PA', label: 'Pennsylvania' }, { value: 'PR', label: 'Puerto Rico' }, { value: 'RI', label: 'Rhode Island' }, { value: 'SC', label: 'South Carolina' }, { value: 'SD', label: 'South Dakota' }, { value: 'TN', label: 'Tennessee' }, { value: 'TX', label: 'Texas' }, { value: 'UT', label: 'Utah' }, { value: 'VT', label: 'Vermont' }, { value: 'VI', label: 'Virgin Islands' }, { value: 'VA', label: 'Virginia' }, { value: 'WA', label: 'Washington' }, { value: 'WV', label: 'West Virginia' }, { value: 'WI', label: 'Wisconsin' }, { value: 'WY', label: 'Wyoming' }];
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 
 exports.users = [{ value: 'John Smith', label: 'John Smith', email: 'john@smith.com' }, { value: 'Merry Jane', label: 'Merry Jane', email: 'merry@jane.com' }, { value: 'Stan Hoper', label: 'Stan Hoper', email: 'stan@hoper.com' }];
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -1015,7 +1105,7 @@ var isArray = Array.isArray || function (xs) {
   return Object.prototype.toString.call(xs) === '[object Array]';
 };
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -1102,13 +1192,13 @@ var objectKeys = Object.keys || function (obj) {
   return res;
 };
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 'use strict';
 
 exports.decode = exports.parse = require('./decode');
 exports.encode = exports.stringify = require('./encode');
 
-},{"./decode":15,"./encode":16}],18:[function(require,module,exports){
+},{"./decode":16,"./encode":17}],19:[function(require,module,exports){
 // Generated by CoffeeScript 1.9.3
 var React, isRetina, md5, querystring;
 
@@ -1166,7 +1256,7 @@ module.exports = React.createClass({
   }
 });
 
-},{"is-retina":19,"md5":20,"querystring":17,"react":undefined}],19:[function(require,module,exports){
+},{"is-retina":20,"md5":21,"querystring":18,"react":undefined}],20:[function(require,module,exports){
 module.exports = function() {
   var mediaQuery;
   if (typeof window !== "undefined" && window !== null) {
@@ -1181,7 +1271,7 @@ module.exports = function() {
   return false;
 };
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 (function(){
   var crypt = require('crypt'),
       utf8 = require('charenc').utf8,
@@ -1343,7 +1433,7 @@ module.exports = function() {
 
 })();
 
-},{"charenc":21,"crypt":22,"is-buffer":23}],21:[function(require,module,exports){
+},{"charenc":22,"crypt":23,"is-buffer":24}],22:[function(require,module,exports){
 var charenc = {
   // UTF-8 encoding
   utf8: {
@@ -1378,7 +1468,7 @@ var charenc = {
 
 module.exports = charenc;
 
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 (function() {
   var base64map
       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/',
@@ -1476,7 +1566,7 @@ module.exports = charenc;
   module.exports = crypt;
 })();
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 /**
  * Determine if an object is Buffer
  *

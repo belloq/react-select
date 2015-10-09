@@ -193,6 +193,17 @@
   color: #cccccc;
   cursor: not-allowed;
 }
+.Select-optionGroup-label ~ .Select-option,
+.Select-optionGroup-label ~ .Select-optionGroup {
+  margin-left: 10px;
+}
+.Select-optionGroup-label {
+  box-sizing: border-box;
+  color: #666666;
+  cursor: default;
+  display: block;
+  padding: 8px 10px;
+}
 .Select-noresults,
 .Select-search-prompt,
 .Select-searching {
