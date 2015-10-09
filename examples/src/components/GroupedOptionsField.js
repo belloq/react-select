@@ -61,7 +61,7 @@ var GroupedOptionsField = React.createClass({
 				<Select
 					options={ops}
 					placeholder="Select a color"
-					onChange={logChange} />
+					onChange={logChange} value="green" />
 			</div>
 		);
 	}

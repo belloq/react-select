@@ -305,7 +305,7 @@ var Select = React.createClass({
 
 	getStateFromValue (value, options, placeholder) {
 		if (!options) {
-			options = this.state.options;
+			options = this.state.flatOptions;
 		}
 		if (!placeholder) {
 			placeholder = this.props.placeholder;
