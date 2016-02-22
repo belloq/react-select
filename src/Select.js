@@ -785,7 +785,9 @@ var Select = React.createClass({
 				label: inputValue,
 				create: true
 			};
-			options.unshift(newOption);
+			if (newOption) {
+				options.unshift(newOption);
+			}
 		}
 
 		if (!options.length) {

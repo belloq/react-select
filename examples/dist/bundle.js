@@ -273,7 +273,7 @@ function defaultFilterOptions(options, filterValue, exclude) {
 					options: groupMatches
 				}));
 			}
-		} else if ((!this.props.multi || exclude.indexOf(option.value) === -1) && (this.props.filterOption && this.props.filterOption.call(this, option, filterValue))) {
+		} else if ((!this.props.multi || exclude.indexOf(option.value) === -1) && this.props.filterOption && this.props.filterOption.call(this, option, filterValue)) {
 			matches.push(option);
 		}
 		return matches;
@@ -1027,7 +1027,9 @@ var Select = React.createClass({
 				label: inputValue,
 				create: true
 			};
-			options.unshift(newOption);
+			if (newOption) {
+				options.unshift(newOption);
+			}
 		}
 
 		if (!options.length) {
