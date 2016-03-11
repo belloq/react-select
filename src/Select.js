@@ -314,7 +314,7 @@ var Select = React.createClass({
 		// reset internal filter string
 		this._optionsFilterString = '';
 
-		var values = this.initValuesArray(value, this.state.flatOptions);
+		var values = this.initValuesArray(value, options);
 		var filteredOptions = this.filterOptions(options, values);
 
 		var focusedOption;
@@ -785,9 +785,7 @@ var Select = React.createClass({
 				label: inputValue,
 				create: true
 			};
-			if (newOption) {
-				options.unshift(newOption);
-			}
+			options.unshift(newOption);
 		}
 
 		if (!options.length) {
