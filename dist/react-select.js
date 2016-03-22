@@ -434,7 +434,7 @@ var Select = React.createClass({
 		// reset internal filter string
 		this._optionsFilterString = '';
 
-		var values = this.initValuesArray(value, options);
+		var values = this.initValuesArray(value, flattenOptions(options));
 		var filteredOptions = this.filterOptions(options, values);
 
 		var focusedOption;
